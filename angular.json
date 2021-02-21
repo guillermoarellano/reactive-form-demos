@@ -3,5 +3,126 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-  }
+    "character-form": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/character-form",
+      "sourceRoot": "projects/character-form/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/character-form",
+            "index": "projects/character-form/src/index.html",
+            "main": "projects/character-form/src/main.ts",
+            "polyfills": "projects/character-form/src/polyfills.ts",
+            "tsConfig": "projects/character-form/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/character-form/src/favicon.ico",
+              "projects/character-form/src/assets"
+            ],
+            "styles": [
+              "projects/character-form/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/character-form/src/environments/environment.ts",
+                  "with": "projects/character-form/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "character-form:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "character-form:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "character-form:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/character-form/src/test.ts",
+            "polyfills": "projects/character-form/src/polyfills.ts",
+            "tsConfig": "projects/character-form/tsconfig.spec.json",
+            "karmaConfig": "projects/character-form/karma.conf.js",
+            "assets": [
+              "projects/character-form/src/favicon.ico",
+              "projects/character-form/src/assets"
+            ],
+            "styles": [
+              "projects/character-form/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/character-form/tsconfig.app.json",
+              "projects/character-form/tsconfig.spec.json",
+              "projects/character-form/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/character-form/e2e/protractor.conf.js",
+            "devServerTarget": "character-form:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "character-form:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "character-form"
 }
