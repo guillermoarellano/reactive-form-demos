@@ -6,7 +6,7 @@ import {
   AbstractControl,
   ValidatorFn,
   FormArray,
-  ValidationErrors
+  ValidationErrors,
 } from '@angular/forms';
 
 import { debounceTime } from 'rxjs/operators';
@@ -17,7 +17,7 @@ import { emailMatcher, ratingRange } from './customer.validators';
 @Component({
   selector: 'app-customer',
   templateUrl: './customer.component.html',
-  styleUrls: ['./customer.component.scss']
+  styleUrls: ['./customer.component.scss'],
 })
 export class CustomerComponent implements OnInit {
   customerForm!: FormGroup;
@@ -30,34 +30,60 @@ export class CustomerComponent implements OnInit {
 
   private validationMessages: { [key: string]: string } = {
     required: 'Please enter your email address.',
-    email: 'Please enter a valid email address.'
+    email: 'Please enter a valid email address.',
   };
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.customerForm = this.fb.group({
       firstName: ['', [Validators.required, Validators.minLength(3)]],
       lastName: ['', [Validators.required, Validators.maxLength(50)]],
-      emailGroup: this.fb.group({
-        email: ['', [Validators.required, Validators.email]],
-        confirmEmail: ['', Validators.required]
-      }, { validators: emailMatcher }),
+      emailGroup: this.fb.group(
+        {
+          email: ['', [Validators.required, Validators.email]],
+          confirmEmail: ['', Validators.required],
+        },
+        { validators: emailMatcher }
+      ),
       phone: '',
       notification: 'email',
       rating: [null, ratingRange(1, 5)],
       sendCatalog: true,
-      addresses: this.fb.array([this.buildAddress()])
+      workAddress: this.fb.group({
+        addressType: 'home',
+        street1: ['', Validators.required],
+        street2: '',
+        city: '',
+        state: '',
+        zip: '',
+      }),
+      homeAddress: this.fb.group({
+        addressType: 'home',
+        street1: ['', Validators.required],
+        street2: '',
+        city: '',
+        state: '',
+        zip: '',
+      }),
+      otherAddress: this.fb.group({
+        addressType: 'home',
+        street1: ['', Validators.required],
+        street2: '',
+        city: '',
+        state: '',
+        zip: '',
+      }),
     });
 
-    this.customerForm.get('notification')?.valueChanges.subscribe(
-      value => this.setNotification(value)
-    );
+    this.customerForm
+      .get('notification')
+      ?.valueChanges.subscribe((value) => this.setNotification(value));
 
     const emailControl = this.customerForm.get('emailGroup.email');
     emailControl?.valueChanges
       .pipe(debounceTime(1000))
-      .subscribe(value => this.setMessage(emailControl));
+      .subscribe((value) => this.setMessage(emailControl));
   }
 
   addAddress(): void {
@@ -71,7 +97,7 @@ export class CustomerComponent implements OnInit {
       street2: '',
       city: '',
       state: '',
-      zip: ''
+      zip: '',
     });
   }
 
@@ -79,7 +105,10 @@ export class CustomerComponent implements OnInit {
     this.customerForm.patchValue({
       firstName: 'Jack',
       lastName: 'Harkness',
-      emailGroup: { email: 'jack@torchwood.com', confirmEmail: 'jack@torchwood.com' }
+      emailGroup: {
+        email: 'jack@torchwood.com',
+        confirmEmail: 'jack@torchwood.com',
+      },
     });
     const addressGroup = this.fb.group({
       addressType: 'work',
@@ -87,7 +116,7 @@ export class CustomerComponent implements OnInit {
       street2: '',
       city: 'Cardiff Bay',
       state: 'CA',
-      zip: ''
+      zip: '',
     });
     this.customerForm.setControl('addresses', this.fb.array([addressGroup]));
   }
@@ -101,7 +130,7 @@ export class CustomerComponent implements OnInit {
     this.emailMessage = '';
     if ((c.touched || c.dirty) && c.errors) {
       this.emailMessage = Object.keys(c.errors)
-        .map(key => this.validationMessages[key])
+        .map((key) => this.validationMessages[key])
         .join(' ');
     }
   }
