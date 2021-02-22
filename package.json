@@ -7,7 +7,10 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "start:multiple-addresses":"ng serve --project=multiple-addresses --port 4000",
+    "start:character-form":"ng serve --project=character-form --port 4100",
+    "start:xxx":"ng serve --project=multiple-addresses --port 4200"
   },
   "private": true,
   "dependencies": {
@@ -19,6 +22,8 @@
     "@angular/platform-browser": "~11.2.1",
     "@angular/platform-browser-dynamic": "~11.2.1",
     "@angular/router": "~11.2.1",
+    "bootstrap": "^4.6.0",
+    "font-awesome": "^4.7.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"
