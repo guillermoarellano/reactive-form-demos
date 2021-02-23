@@ -14,10 +14,10 @@ Run `npm install` on your terminal after cloning or downloading this project fro
 
 Execute `npm run start:multiple-addresses` from your terminal to run the application that showcases dynamically adding multiple addresses to your Reactive form.
 
-## Family Tree app
-
-Execute `npm.....`
-
 ## Character Form app
 
-  Work In Progress
+_Work In Progress_
+
+## Family Tree Form app
+
+_Work In Progress_

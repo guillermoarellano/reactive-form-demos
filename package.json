@@ -9,8 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "start:multiple-addresses":"ng serve --project=multiple-addresses --port 4000",
-    "start:character-form":"ng serve --project=character-form --port 4100",
-    "start:xxx":"ng serve --project=multiple-addresses --port 4200"
+    "start:character-form":"ng serve --project=character-form --port 4100"
   },
   "private": true,
   "dependencies": {
